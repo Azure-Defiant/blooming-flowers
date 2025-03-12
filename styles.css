@@ -1,0 +1,215 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    background: linear-gradient(to bottom, #e0f7fa, #bbdefb);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow-x: hidden;
+}
+
+.container {
+    text-align: center;
+    width: 100%;
+    max-width: 1200px;
+    padding: 20px;
+}
+
+.title {
+    color: #4a148c;
+    margin-bottom: 30px;
+    font-size: 2.5rem;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+    animation: glow 2s ease-in-out infinite alternate;
+}
+
+@keyframes glow {
+    from {
+        text-shadow: 0 0 5px #fff, 0 0 10px #e1bee7, 0 0 15px #ce93d8;
+    }
+    to {
+        text-shadow: 0 0 10px #fff, 0 0 20px #ba68c8, 0 0 30px #ab47bc;
+    }
+}
+
+.flower-garden {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    min-height: 400px;
+    margin: 20px 0;
+    position: relative;
+}
+
+.flower {
+    position: relative;
+    margin: 20px;
+    transform-origin: bottom center;
+    animation: sway 5s ease-in-out infinite alternate;
+}
+
+@keyframes sway {
+    0% { transform: rotate(-5deg); }
+    100% { transform: rotate(5deg); }
+}
+
+.stem {
+    width: 8px;
+    height: 150px;
+    background: linear-gradient(to bottom, #81c784, #4caf50);
+    margin: 0 auto;
+    position: relative;
+    z-index: 1;
+    border-radius: 4px;
+}
+
+.leaf {
+    position: absolute;
+    width: 30px;
+    height: 20px;
+    background: linear-gradient(to right, #66bb6a, #43a047);
+    border-radius: 50% 50% 50% 0;
+    transform: rotate(-30deg);
+    left: -20px;
+    z-index: 0;
+}
+
+.leaf:nth-child(2) {
+    top: 60px;
+    transform: rotate(30deg) scaleX(-1);
+    left: auto;
+    right: -20px;
+}
+
+.flower-center {
+    width: 30px;
+    height: 30px;
+    background: #ffd54f;
+    border-radius: 50%;
+    position: relative;
+    z-index: 2;
+    top: -15px;
+    margin: 0 auto;
+    box-shadow: 0 0 10px rgba(255, 213, 79, 0.8);
+    transition: transform 0.3s ease;
+}
+
+.petals {
+    position: absolute;
+    top: -15px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 1;
+}
+
+.petal {
+    position: absolute;
+    width: 40px;
+    height: 60px;
+    background: #f48fb1;
+    border-radius: 50% 50% 50% 50% / 80% 80% 20% 20%;
+    transform-origin: center bottom;
+    opacity: 0;
+    animation: bloom 2.5s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.petal.inner {
+    width: 32px;
+    height: 48px;
+    z-index: 2;
+}
+
+.petal.outer {
+    width: 44px;
+    height: 66px;
+    z-index: 1;
+}
+
+@keyframes bloom {
+    0% {
+        transform: scale(0.1) rotate(-45deg) translateY(20px);
+        opacity: 0;
+    }
+    20% {
+        transform: scale(0.3) rotate(-30deg) translateY(15px);
+        opacity: 0.2;
+    }
+    40% {
+        transform: scale(0.5) rotate(-20deg) translateY(10px);
+        opacity: 0.4;
+    }
+    60% {
+        transform: scale(0.7) rotate(-10deg) translateY(5px);
+        opacity: 0.6;
+    }
+    80% {
+        transform: scale(0.9) rotate(-5deg) translateY(2px);
+        opacity: 0.8;
+    }
+    100% {
+        transform: scale(1) rotate(0deg) translateY(0);
+        opacity: 1;
+    }
+}
+
+.controls {
+    margin-top: 30px;
+}
+
+button {
+    padding: 12px 24px;
+    margin: 0 10px;
+    background: linear-gradient(to right, #7b1fa2, #6a1b9a);
+    color: white;
+    border: none;
+    border-radius: 25px;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+button:hover {
+    background: linear-gradient(to right, #6a1b9a, #4a148c);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.2);
+}
+
+button:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Particle effects */
+.particle {
+    position: absolute;
+    width: 6px;
+    height: 6px;
+    background: rgba(255, 255, 255, 0.8);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 10;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .title {
+        font-size: 2rem;
+    }
+    
+    .flower-garden {
+        min-height: 300px;
+    }
+    
+    .controls button {
+        padding: 10px 20px;
+        margin: 5px;
+    }
+}
