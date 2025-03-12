@@ -1,10 +1,8 @@
 document.addEventListener('DOMContentLoaded', () => {
-    // DOM Elements
     const flowerGarden = document.getElementById('flower-garden');
     const addFlowerBtn = document.getElementById('add-flower');
     const changeColorsBtn = document.getElementById('change-colors');
     
-    // Configuration
     const flowerColors = [
         '#f48fb1', '#f8bbd0', '#e91e63', '#ec407a', '#ad1457',
         '#ba68c8', '#9c27b0', '#7b1fa2', '#673ab7', '#5e35b1',
@@ -18,7 +16,6 @@ document.addEventListener('DOMContentLoaded', () => {
         '#ef6c00', '#e65100', '#ffa000', '#ff8f00', '#ff6f00'
     ];
     
-    // Functions
     function getRandomItem(array) {
         return array[Math.floor(Math.random() * array.length)];
     }
@@ -28,11 +25,9 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     
     function createFlower() {
-        // Create flower container
         const flower = document.createElement('div');
         flower.className = 'flower';
         
-        // Create stem and leaves
         const stem = document.createElement('div');
         stem.className = 'stem';
         
@@ -46,15 +41,12 @@ document.addEventListener('DOMContentLoaded', () => {
         
         flower.appendChild(stem);
         
-        // Create petals container
         const petalsContainer = document.createElement('div');
         petalsContainer.className = 'petals';
         
-        // Create multiple layers of petals
         const petalColor = getRandomItem(flowerColors);
-        const petalCount = Math.floor(getRandomNumber(8, 12)); // Base number of petals
+        const petalCount = Math.floor(getRandomNumber(8, 12));
         
-        // Create outer layer
         for (let i = 0; i < petalCount; i++) {
             const petal = document.createElement('div');
             petal.className = 'petal outer';
@@ -64,7 +56,6 @@ document.addEventListener('DOMContentLoaded', () => {
             petalsContainer.appendChild(petal);
         }
 
-        // Create middle layer
         for (let i = 0; i < petalCount - 2; i++) {
             const petal = document.createElement('div');
             petal.className = 'petal';
@@ -74,7 +65,6 @@ document.addEventListener('DOMContentLoaded', () => {
             petalsContainer.appendChild(petal);
         }
 
-        // Create inner layer
         for (let i = 0; i < petalCount - 4; i++) {
             const petal = document.createElement('div');
             petal.className = 'petal inner';
@@ -86,16 +76,13 @@ document.addEventListener('DOMContentLoaded', () => {
         
         flower.appendChild(petalsContainer);
         
-        // Create flower center
         const flowerCenter = document.createElement('div');
         flowerCenter.className = 'flower-center';
         flowerCenter.style.background = getRandomItem(centerColors);
         flower.appendChild(flowerCenter);
         
-        // Set random animation duration for swaying
         flower.style.animationDuration = `${getRandomNumber(4, 8)}s`;
         
-        // Add hover effect
         flower.addEventListener('mouseenter', () => {
             flowerCenter.style.transform = 'scale(1.2)';
             createParticles(flower, 5);
@@ -119,23 +106,19 @@ document.addEventListener('DOMContentLoaded', () => {
         const flowers = document.querySelectorAll('.flower');
         
         flowers.forEach(flower => {
-            // Change petal colors
             const petals = flower.querySelectorAll('.petal');
             const newPetalColor = getRandomItem(flowerColors);
             
             petals.forEach(petal => {
                 petal.style.background = newPetalColor;
-                // Add a small animation for color change
                 petal.style.animation = 'none';
-                petal.offsetHeight; // Trigger reflow
+                petal.offsetHeight;
                 petal.style.animation = 'bloom 0.5s ease-out forwards';
             });
             
-            // Change center color
             const center = flower.querySelector('.flower-center');
             center.style.background = getRandomItem(centerColors);
             
-            // Add particles for effect
             createParticles(flower, 8);
         });
     }
@@ -147,23 +130,19 @@ document.addEventListener('DOMContentLoaded', () => {
             const particle = document.createElement('div');
             particle.className = 'particle';
             
-            // Random position around the flower
             const x = getRandomNumber(rect.left, rect.right);
             const y = getRandomNumber(rect.top - 20, rect.bottom - 20);
             
-            // Random color from flower colors
             particle.style.background = getRandomItem(flowerColors);
             particle.style.left = `${x}px`;
             particle.style.top = `${y}px`;
             
-            // Add to body
             document.body.appendChild(particle);
             
-            // Animate the particle
             const angle = getRandomNumber(0, Math.PI * 2);
             const speed = getRandomNumber(1, 3);
             const startTime = Date.now();
-            const duration = getRandomNumber(1000, 2000); // 1-2 seconds
+            const duration = getRandomNumber(1000, 2000);
             
             function animateParticle() {
                 const elapsed = Date.now() - startTime;
@@ -178,7 +157,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 const currentY = parseFloat(particle.style.top);
                 
                 particle.style.left = `${currentX + Math.cos(angle) * speed}px`;
-                particle.style.top = `${currentY + Math.sin(angle) * speed - progress * 2}px`; // Rising effect
+                particle.style.top = `${currentY + Math.sin(angle) * speed - progress * 2}px`;
                 particle.style.opacity = 1 - progress;
                 
                 requestAnimationFrame(animateParticle);
@@ -188,9 +167,8 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
     
-    // Event Listeners
     addFlowerBtn.addEventListener('click', () => {
-        addFlowers(Math.floor(getRandomNumber(1, 5))); // Add 1-4 flowers
+        addFlowers(Math.floor(getRandomNumber(1, 5)));
         createParticles(addFlowerBtn, 10);
     });
     
@@ -199,6 +177,5 @@ document.addEventListener('DOMContentLoaded', () => {
         createParticles(changeColorsBtn, 10);
     });
     
-    // Initialize with some flowers
     addFlowers(10);
 });
